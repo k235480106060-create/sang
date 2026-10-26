@@ -1,5 +1,11 @@
-*.iso
-*.mp4
-*.zip
-*.rar
-/test_files/
+# Python (Bài 1)
+__pycache__/
+*.py[cod]
+
+# .NET / C# (Bài 2)
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.userosscache
