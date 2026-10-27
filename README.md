@@ -67,41 +67,49 @@ bài 1: Mã hoá AES : Mã hoá đối xứng (mã hoá, giải mã cùng dùng 
 ## 1. Sinh cặp khoá RSA & Xuất định dạng PEM
 - **Mô tả:** Khởi tạo cặp khoá RSA 2048-bit và xuất ra file định dạng `.pem` (PKCS#1 / PKCS#8).
 - **Minh chứng:**
-![1. Sinh & Xuất PEM](tài liệu/bai2/01-generate-export-pem.png)
+<img width="1920" height="1021" alt="image" src="https://github.com/user-attachments/assets/7273a358-ef26-40c4-adb2-beb711b6331c" />
+
 
 ## 2. Phân tích Cấu trúc Byte ASN.1 DER / PEM (View PEM)
 - **Cấu trúc TLV (Tag-Length-Value):**
   - `0x30` (SEQUENCE): Bao bọc mảng chứa các thành phần khoá.
   - `0x02` (INTEGER): Lưu trữ các đại lượng toán học RSA.
 - **Minh chứng:**
-![2. View PEM Bytes](tài liệu/bai2/02-view-pem-bytes.png)
+<img width="1920" height="1021" alt="image" src="https://github.com/user-attachments/assets/98e60a2d-135a-4652-a5c7-d4c53c6f2c6c" />
+
 
 ## 3. Import File PEM (Trích xuất thông số $n, e, d$)
 - **Public Key:** Trích xuất $n$ (Modulus) và $e$ (Public Exponent, thường là 65537).
 - **Private Key:** Trích xuất $n, e, d, p, q, dP, dQ, qInv$.
 - **Minh chứng:**
-![3. Import Keys](tài liệu/bai2/03-parse-keys.png)
+<img width="1920" height="1016" alt="image" src="https://github.com/user-attachments/assets/81b30afb-b968-4d24-bf61-4289c3a9432c" />
+
 
 ## 4. Mã hoá & Giải mã Dữ liệu (Base64)
 - **Mã hoá:** Mã hoá mảng byte dữ liệu $\le 190$ bytes (hoặc khoá AES 256-bit 32 bytes) bằng Public Key, xuất chuỗi mã hoá dạng Base64 ra file.
 - **Giải mã:** Dùng Private Key giải mã dữ liệu Base64 và so sánh byte khớp 100% với ban đầu.
 - **Minh chứng:**
-![4. Encrypt Decrypt Data](tài liệu/bai2/04-encrypt-decrypt-data.png)
+<img width="1920" height="1026" alt="image" src="https://github.com/user-attachments/assets/cf31b530-a672-40fc-ba86-21731ff4d66b" />
+
 
 ## 5. Đánh giá Tốc độ Mã hoá / Giải mã
 - **Kết quả đo lường:**
   - **Mã hoá bằng Public Key ($e$ nhỏ):** Rất nhanh (phép tính số mũ nhỏ).
   - **Giải mã bằng Private Key ($d$ lớn):** Chậm hơn nhiều do phép tính số mũ kích thước 2048-bit lớn.
 - **Minh chứng:**
-![5. Benchmark Speed](tài liệu/bai2/05-benchmark-speed.png)
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/cfdaa925-7275-43b0-9605-282dee62ead5" />
+
 
 ## 6. Sinh chuỗi băm SHA-256 & Hiệu ứng Avalanche (Tuyết lở)
 - **Thử nghiệm:** Thay đổi chỉ 1 ký tự / 1 bit ở đầu vào, chuỗi băm 256-bit kết quả thay đổi hoàn toàn (không còn tương quan).
 - **Minh chứng:**
-![6. SHA256 Avalanche](tài liệu/bai2/06-sha256-avalanche.png)
+<img width="1920" height="1026" alt="image" src="https://github.com/user-attachments/assets/803d8128-373b-4bde-9f02-f241fc21721f" />
+
 
 ## 7. Chữ ký số Ngẫu nhiên (Probabilistic Signature Scheme)
 - **Đề xuất giải pháp:** Áp dụng chuẩn **RSA-PSS Padding** hoặc thêm **Random Salt** vào dữ liệu trước khi băm/ký.
 - **Kết quả:** Cùng một dữ liệu và cùng một Private Key, mỗi lần bấm ký đều tạo ra một Chữ ký số hoàn toàn khác nhau nhưng tất cả đều xác minh (Verify) thành công.
 - **Minh chứng:**
-![7. Chữ ký số PSS](tài liệu/bai2/07-probabilistic-signature.png)
+<img width="1920" height="1021" alt="image" src="https://github.com/user-attachments/assets/ad670011-e0f6-4933-8f2e-e22731eeb6f8" />
+<img width="1920" height="1017" alt="image" src="https://github.com/user-attachments/assets/101a488b-908a-478f-bb9d-e0521725313b" />
+
